@@ -10,5 +10,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
  * @version 0.0.1
  * @since 13-10-2021
  */
-public interface AddressBookRepository extends JpaRepository {
+public interface AddressBookRepository {
 }
