@@ -19,10 +19,9 @@ import java.util.List;
 @Service
 public class AdressBookService implements IAddressBookService {
 
+    private final List<AddressBook> addressBookList = new ArrayList<>();
     @Autowired
     public ModelMapper modelMapper;
-
-    private final List<AddressBook> addressBookList = new ArrayList<>();
 
     @Override
     public List<AddressBook> getAllContacts() {
