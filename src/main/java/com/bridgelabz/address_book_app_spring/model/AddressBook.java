@@ -20,7 +20,6 @@ public class AddressBook {
     private String phoneNumber;
 
 
-
     public AddressBook(int id, AddressBookDto addressBookDto) {
         this.id = id;
         this.firstName = addressBookDto.getFirstName();

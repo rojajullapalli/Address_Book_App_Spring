@@ -35,7 +35,7 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> getAllContacts() {
         List<AddressBook> addressBook = null;
         addressBook = adressBookService.getAllContacts();
-        ResponseDto responseDto = new ResponseDto("Get Call Success",addressBook);
+        ResponseDto responseDto = new ResponseDto("Get Call Success", addressBook);
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -50,8 +50,8 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> getContactById(@PathVariable(value = "contactId") int contactId) {
         AddressBook addressBook = null;
         addressBook = adressBookService.getContactById(contactId);
-        ResponseDto responseDto = new ResponseDto("Get Call Success For Id",addressBook);
-        return  new ResponseEntity<ResponseDto>( responseDto, HttpStatus.OK);
+        ResponseDto responseDto = new ResponseDto("Get Call Success For Id", addressBook);
+        return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
     /**
@@ -66,24 +66,24 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> addContact(@RequestBody AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
         addressBook = adressBookService.addContact(addressBookDto);
-        ResponseDto responseDto = new ResponseDto("Added Address ",addressBook);
+        ResponseDto responseDto = new ResponseDto("Added Address ", addressBook);
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
     /**
      * Function to perform Http Put request
      *
-     * @param contactId unique identifier of contact
+     * @param contactId      unique identifier of contact
      * @param addressBookDto contact data in addressbook
      * @return update contact data by using unique id
      */
 
 
     @PutMapping("/update/{contactId}")
-    public ResponseEntity<ResponseDto> updateContact(@PathVariable(value = "contactId") int contactId,@RequestBody AddressBookDto addressBookDto) {
+    public ResponseEntity<ResponseDto> updateContact(@PathVariable(value = "contactId") int contactId, @RequestBody AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
         addressBook = adressBookService.UpdateContact(contactId, addressBookDto);
-        ResponseDto responseDto = new ResponseDto("updated Address "+contactId,addressBook);
+        ResponseDto responseDto = new ResponseDto("updated Address " + contactId, addressBook);
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -97,7 +97,7 @@ public class AddressBookController {
     @DeleteMapping("/delete/{contactId}")
     public ResponseEntity<ResponseDto> deleteContact(@PathVariable(value = "contactId") int contactId) {
         adressBookService.deleteContact(contactId);
-        ResponseDto responseDto = new ResponseDto("Deleted Successfully ","deleted Address Id "+contactId);
+        ResponseDto responseDto = new ResponseDto("Deleted Successfully ", "deleted Address Id " + contactId);
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 }

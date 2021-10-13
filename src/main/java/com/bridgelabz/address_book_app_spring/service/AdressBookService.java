@@ -2,6 +2,8 @@ package com.bridgelabz.address_book_app_spring.service;
 
 import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -16,36 +18,40 @@ import java.util.List;
  */
 @Service
 public class AdressBookService implements IAddressBookService {
+
+    @Autowired
+    public ModelMapper modelMapper;
+
+    private final List<AddressBook> addressBookList = new ArrayList<>();
+
     @Override
     public List<AddressBook> getAllContacts() {
-        List<AddressBook> addressBookList = new ArrayList<>();
-        addressBookList.add(new AddressBook(1,new AddressBookDto("roja","chennai","tamilnadu","602026","78786667")));
         return addressBookList;
     }
 
     @Override
     public AddressBook getContactById(int contactId) {
-        AddressBook addressBook = null;
-        addressBook = new AddressBook(1,new AddressBookDto("roja","chennai","tamilnadu","602026","78786667"));
-        return addressBook;
+        return addressBookList.get(contactId - 1);
     }
 
     @Override
     public AddressBook addContact(AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
-        addressBook = new AddressBook(1,addressBookDto);
+        addressBook = new AddressBook(addressBookList.size() + 1, addressBookDto);
+        addressBookList.add(addressBook);
         return addressBook;
     }
 
     @Override
-    public AddressBook UpdateContact(int contactId,AddressBookDto addressBookDto) {
-        AddressBook addressBook = null;
-        addressBook = new AddressBook(contactId,addressBookDto);
+    public AddressBook UpdateContact(int contactId, AddressBookDto addressBookDto) {
+        AddressBook addressBook = this.getContactById(contactId);
+        modelMapper.map(addressBookDto, addressBook);
+        addressBookList.set(contactId - 1, addressBook);
         return addressBook;
     }
 
     @Override
-    public void deleteContact(int ContactId) {
-
+    public void deleteContact(int contactId) {
+        addressBookList.remove(contactId - 1);
     }
 }
