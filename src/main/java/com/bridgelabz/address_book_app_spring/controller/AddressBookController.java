@@ -4,6 +4,7 @@ import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
 import com.bridgelabz.address_book_app_spring.dto.ResponseDto;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
 import com.bridgelabz.address_book_app_spring.service.AdressBookService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,6 +19,7 @@ import java.util.List;
  * @version 0.0.1
  * @since 13-10-2021
  */
+@Slf4j
 @RestController
 @RequestMapping(value = "/addressbook")
 public class AddressBookController {
@@ -36,6 +38,7 @@ public class AddressBookController {
         List<AddressBook> addressBook = null;
         addressBook = adressBookService.getAllContacts();
         ResponseDto responseDto = new ResponseDto("Get Call Success", addressBook);
+        log.info("got all the contacts");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -51,6 +54,7 @@ public class AddressBookController {
         AddressBook addressBook = null;
         addressBook = adressBookService.getContactById(contactId);
         ResponseDto responseDto = new ResponseDto("Get Call Success For Id", addressBook);
+        log.info("got the contact by id");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -67,6 +71,7 @@ public class AddressBookController {
         AddressBook addressBook = null;
         addressBook = adressBookService.addContact(addressBookDto);
         ResponseDto responseDto = new ResponseDto("Added Address ", addressBook);
+        log.info("contact added successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -84,6 +89,7 @@ public class AddressBookController {
         AddressBook addressBook = null;
         addressBook = adressBookService.UpdateContact(contactId, addressBookDto);
         ResponseDto responseDto = new ResponseDto("updated Address " + contactId, addressBook);
+        log.info("contact updated successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 
@@ -98,6 +104,7 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> deleteContact(@PathVariable(value = "contactId") int contactId) {
         adressBookService.deleteContact(contactId);
         ResponseDto responseDto = new ResponseDto("Deleted Successfully ", "deleted Address Id " + contactId);
+        log.info("contact deleted successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
 }
