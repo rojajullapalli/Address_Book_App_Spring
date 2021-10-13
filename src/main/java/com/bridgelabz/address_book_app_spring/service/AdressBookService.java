@@ -3,6 +3,7 @@ package com.bridgelabz.address_book_app_spring.service;
 import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
 import com.bridgelabz.address_book_app_spring.exceptions.CustomException;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
+import com.bridgelabz.address_book_app_spring.repository.AddressBookRepository;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,9 @@ public class AdressBookService implements IAddressBookService {
 
     private final List<AddressBook> addressBookList = new ArrayList<>();
     @Autowired
-    public ModelMapper modelMapper;
+    private ModelMapper modelMapper;
+    @Autowired
+    private AddressBookRepository addressBookRepository;
 
     @Override
     public List<AddressBook> getAllContacts() {
@@ -37,9 +40,8 @@ public class AdressBookService implements IAddressBookService {
     @Override
     public AddressBook addContact(AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
-        addressBook = new AddressBook(addressBookList.size() + 1, addressBookDto);
-        addressBookList.add(addressBook);
-        return addressBook;
+        addressBook = new AddressBook(addressBookDto);
+        return addressBookRepository.save(addressBook);
     }
 
     @Override
