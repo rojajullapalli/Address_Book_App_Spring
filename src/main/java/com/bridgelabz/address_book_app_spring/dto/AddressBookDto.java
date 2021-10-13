@@ -1,5 +1,6 @@
 package com.bridgelabz.address_book_app_spring.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
 
 /**
@@ -10,7 +11,8 @@ import lombok.Data;
  * @since 13-10-2021
  */
 @Data
-public class AddressBootDto {
+@AllArgsConstructor
+public class AddressBookDto {
     private String firstName;
     private String city;
     private String state;
