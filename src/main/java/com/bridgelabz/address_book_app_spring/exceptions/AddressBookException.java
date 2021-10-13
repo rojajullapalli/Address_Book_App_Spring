@@ -14,12 +14,18 @@ import java.util.List;
 @ControllerAdvice
 public class AddressBookException {
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public final ResponseEntity<ResponseDto> handleUserNotValidException(MethodArgumentNotValidException ex) {
+    public final ResponseEntity<ResponseDto> handleUserNotValidException(MethodArgumentNotValidException exception) {
         List<String> details = new ArrayList<>();
-        for (ObjectError error : ex.getBindingResult().getAllErrors()) {
+        for (ObjectError error : exception.getBindingResult().getAllErrors()) {
             details.add(error.getDefaultMessage());
         }
         ResponseDto responseDto = new ResponseDto("Validation Failed", details);
         return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ResponseDto> handleEmployeeException(CustomException exception){
+        ResponseDto responseDto = new ResponseDto("id not found",exception.getMessage());
+        return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 }

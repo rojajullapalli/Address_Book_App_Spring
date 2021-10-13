@@ -1,6 +1,7 @@
 package com.bridgelabz.address_book_app_spring.service;
 
 import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
+import com.bridgelabz.address_book_app_spring.exceptions.CustomException;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,7 +31,7 @@ public class AdressBookService implements IAddressBookService {
 
     @Override
     public AddressBook getContactById(int contactId) {
-        return addressBookList.get(contactId - 1);
+        return addressBookList.stream().filter(id -> id.getId() == contactId).findFirst().orElseThrow(() -> new CustomException("Contact id not found"));
     }
 
     @Override
@@ -51,6 +52,7 @@ public class AdressBookService implements IAddressBookService {
 
     @Override
     public void deleteContact(int contactId) {
+        addressBookList.stream().filter(id -> id.getId() == contactId).findFirst().orElseThrow(() -> new CustomException("Employee id not found"));
         addressBookList.remove(contactId - 1);
     }
 }
