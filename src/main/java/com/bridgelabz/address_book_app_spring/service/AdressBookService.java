@@ -41,6 +41,7 @@ public class AdressBookService implements IAddressBookService {
     public AddressBook addContact(AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
         addressBook = new AddressBook(addressBookDto);
+        addressBookList.add(addressBook);
         return addressBookRepository.save(addressBook);
     }
 

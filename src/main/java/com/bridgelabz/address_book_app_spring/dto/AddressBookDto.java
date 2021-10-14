@@ -28,6 +28,6 @@ public class AddressBookDto {
     @Pattern(regexp = "^[0-9]{6}$", message = "pincode should cpntains 6 digits")
     private String pincode;
     @NotNull
-    @Pattern(regexp = "^[1-9]{2}[-]{1}[1-9]{10}$", message = "number should follow 91-7645345678")
+    @Pattern(regexp = "^[1-9]{2}[-]{1}[0-9]{10}$", message = "number should follow 91-7645345678")
     private String phoneNumber;
 }
