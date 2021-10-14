@@ -29,33 +29,31 @@ public class AdressBookService implements IAddressBookService {
 
     @Override
     public List<AddressBook> getAllContacts() {
-        return addressBookList;
+       return addressBookRepository.findAll();
     }
 
     @Override
     public AddressBook getContactById(int contactId) {
-        return addressBookList.stream().filter(id -> id.getId() == contactId).findFirst().orElseThrow(() -> new CustomException("Contact id not found"));
+        return addressBookRepository.findById(contactId).orElseThrow(() -> new CustomException("Employee id not found"));
     }
 
     @Override
     public AddressBook addContact(AddressBookDto addressBookDto) {
-        AddressBook addressBook = null;
-        addressBook = new AddressBook(addressBookDto);
-        addressBookList.add(addressBook);
+        AddressBook addressBook = new AddressBook();
+        modelMapper.map(addressBookDto,addressBook);
         return addressBookRepository.save(addressBook);
     }
 
     @Override
     public AddressBook UpdateContact(int contactId, AddressBookDto addressBookDto) {
         AddressBook addressBook = this.getContactById(contactId);
-        modelMapper.map(addressBookDto, addressBook);
-        addressBookList.set(contactId - 1, addressBook);
-        return addressBook;
+        modelMapper.map(addressBookDto,addressBook);
+        return addressBookRepository.save(addressBook);
     }
 
     @Override
     public void deleteContact(int contactId) {
-        addressBookList.stream().filter(id -> id.getId() == contactId).findFirst().orElseThrow(() -> new CustomException("Employee id not found"));
-        addressBookList.remove(contactId - 1);
+        AddressBook addressBook = this.getContactById(contactId);
+        addressBookRepository.delete(addressBook);
     }
 }
