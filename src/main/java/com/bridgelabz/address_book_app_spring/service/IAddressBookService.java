@@ -1,15 +1,16 @@
 package com.bridgelabz.address_book_app_spring.service;
 
 import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
+import com.bridgelabz.address_book_app_spring.dto.AddressBookResponseDto;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
 
 import java.util.List;
 
 public interface IAddressBookService {
 
-    List<AddressBook> getAllContacts();
+    List<AddressBookResponseDto> getAllContacts();
 
-    AddressBook getContactById(int contactId);
+    AddressBookResponseDto getContactById(int contactId);
 
     AddressBook addContact(AddressBookDto addressBookDto);
 

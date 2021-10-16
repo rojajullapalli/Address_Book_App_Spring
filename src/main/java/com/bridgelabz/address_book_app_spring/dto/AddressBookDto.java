@@ -30,4 +30,5 @@ public class AddressBookDto {
     @NotNull
     @Pattern(regexp = "^[1-9]{2}[-]{1}[0-9]{10}$", message = "number should follow 91-7645345678")
     private String phoneNumber;
+
 }

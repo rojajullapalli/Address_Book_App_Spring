@@ -25,14 +25,14 @@ public class AddressBookException {
     }
 
     @ExceptionHandler(CustomException.class)
-    public ResponseEntity<ResponseDto> handleEmployeeException(CustomException exception){
-        ResponseDto responseDto = new ResponseDto("id not found",exception.getMessage());
+    public ResponseEntity<ResponseDto> handleEmployeeException(CustomException exception) {
+        ResponseDto responseDto = new ResponseDto("id not found", exception.getMessage());
         return new ResponseEntity<>(responseDto, HttpStatus.BAD_REQUEST);
     }
 
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ResponseDto> handleHttpMessageNotReadableException(HttpMessageNotReadableException exception) {
-        ResponseDto responseDto = new ResponseDto("invalid date format", exception);
+        ResponseDto responseDto = new ResponseDto("invalid Exception", exception);
         return new ResponseEntity(responseDto, HttpStatus.BAD_REQUEST);
     }
 }

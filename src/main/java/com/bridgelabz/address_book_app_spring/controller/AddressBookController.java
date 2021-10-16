@@ -1,6 +1,8 @@
 package com.bridgelabz.address_book_app_spring.controller;
 
+import com.bridgelabz.address_book_app_spring.constant.ControllerConstant;
 import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
+import com.bridgelabz.address_book_app_spring.dto.AddressBookResponseDto;
 import com.bridgelabz.address_book_app_spring.dto.ResponseDto;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
 import com.bridgelabz.address_book_app_spring.service.AdressBookService;
@@ -36,9 +38,9 @@ public class AddressBookController {
 
     @GetMapping(value = "/get")
     public ResponseEntity<ResponseDto> getAllContacts() {
-        List<AddressBook> addressBook = null;
-        addressBook = adressBookService.getAllContacts();
-        ResponseDto responseDto = new ResponseDto("Get Call Success", addressBook);
+        List<AddressBookResponseDto> addressBookResponseDto = null;
+        addressBookResponseDto = adressBookService.getAllContacts();
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.GET_ALL.getMessage(), addressBookResponseDto);
         log.info("got all the contacts");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
@@ -52,9 +54,9 @@ public class AddressBookController {
 
     @GetMapping(value = "/get/{contactId}")
     public ResponseEntity<ResponseDto> getContactById(@PathVariable(value = "contactId") int contactId) {
-        AddressBook addressBook = null;
-        addressBook = adressBookService.getContactById(contactId);
-        ResponseDto responseDto = new ResponseDto("Get Call Success For Id", addressBook);
+        AddressBookResponseDto addressBoookResponseDto = null;
+        addressBoookResponseDto = adressBookService.getContactById(contactId);
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.GET_BYID.getMessage(), addressBoookResponseDto);
         log.info("got the contact by id");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
@@ -71,7 +73,7 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> addContact(@Valid @RequestBody AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
         addressBook = adressBookService.addContact(addressBookDto);
-        ResponseDto responseDto = new ResponseDto("Added Address ", addressBook);
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.POST_CONTACT.getMessage(), addressBook);
         log.info("contact added successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
@@ -89,7 +91,7 @@ public class AddressBookController {
     public ResponseEntity<ResponseDto> updateContact(@PathVariable(value = "contactId") int contactId, @Valid @RequestBody AddressBookDto addressBookDto) {
         AddressBook addressBook = null;
         addressBook = adressBookService.UpdateContact(contactId, addressBookDto);
-        ResponseDto responseDto = new ResponseDto("updated Address " + contactId, addressBook);
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.PUT_CONTACT.getMessage() + contactId, addressBook);
         log.info("contact updated successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }
@@ -104,7 +106,7 @@ public class AddressBookController {
     @DeleteMapping("/delete/{contactId}")
     public ResponseEntity<ResponseDto> deleteContact(@PathVariable(value = "contactId") int contactId) {
         adressBookService.deleteContact(contactId);
-        ResponseDto responseDto = new ResponseDto("Deleted Successfully ", "deleted Address Id " + contactId);
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.DELETE_CONTACT.getMessage(), "deleted Address Id " + contactId);
         log.info("contact deleted successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }

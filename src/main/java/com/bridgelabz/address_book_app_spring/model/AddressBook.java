@@ -1,9 +1,7 @@
 package com.bridgelabz.address_book_app_spring.model;
 
-import com.bridgelabz.address_book_app_spring.dto.AddressBookDto;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import org.springframework.web.bind.annotation.ExceptionHandler;
 
 import javax.persistence.*;
 
@@ -17,7 +15,7 @@ import javax.persistence.*;
 @Data
 @NoArgsConstructor
 @Entity
-@Table(name="AddressBook")
+@Table(name = "AddressBook")
 public class AddressBook {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,17 +27,4 @@ public class AddressBook {
     private String state;
     private String pincode;
     private String phoneNumber;
-
-    public AddressBook(AddressBookDto addressBookDto){
-        this.updateContactData(addressBookDto);
-    }
-
-
-    public void updateContactData(AddressBookDto addressBookDto) {
-        this.firstName = addressBookDto.getFirstName();
-        this.city = addressBookDto.getCity();
-        this.state = addressBookDto.getState();
-        this.pincode = addressBookDto.getPincode();
-        this.phoneNumber = addressBookDto.getPhoneNumber();
-    }
 }
