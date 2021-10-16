@@ -12,10 +12,10 @@ public interface IAddressBookService {
 
     AddressBookResponseDto getContactById(int contactId);
 
-    AddressBook addContact(AddressBookDto addressBookDto);
+    AddressBookResponseDto addContact(AddressBookDto addressBookDto);
 
     AddressBook UpdateContact(int contactId, AddressBookDto addressBookDto);
 
-    void deleteContact(int ContactId);
+    AddressBook deleteContact(int ContactId);
 
 }

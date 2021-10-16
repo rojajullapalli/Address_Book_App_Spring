@@ -71,7 +71,7 @@ public class AddressBookController {
 
     @PostMapping(value = "/addcontact")
     public ResponseEntity<ResponseDto> addContact(@Valid @RequestBody AddressBookDto addressBookDto) {
-        AddressBook addressBook = null;
+        AddressBookResponseDto addressBook = null;
         addressBook = adressBookService.addContact(addressBookDto);
         ResponseDto responseDto = new ResponseDto(ControllerConstant.POST_CONTACT.getMessage(), addressBook);
         log.info("contact added successfully");
@@ -105,8 +105,8 @@ public class AddressBookController {
 
     @DeleteMapping("/delete/{contactId}")
     public ResponseEntity<ResponseDto> deleteContact(@PathVariable(value = "contactId") int contactId) {
-        adressBookService.deleteContact(contactId);
-        ResponseDto responseDto = new ResponseDto(ControllerConstant.DELETE_CONTACT.getMessage(), "deleted Address Id " + contactId);
+        AddressBook addressBook = adressBookService.deleteContact(contactId);
+        ResponseDto responseDto = new ResponseDto(ControllerConstant.DELETE_CONTACT.getMessage(), addressBook);
         log.info("contact deleted successfully");
         return new ResponseEntity<ResponseDto>(responseDto, HttpStatus.OK);
     }

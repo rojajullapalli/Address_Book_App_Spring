@@ -6,6 +6,7 @@ import com.bridgelabz.address_book_app_spring.dto.AddressBookResponseDto;
 import com.bridgelabz.address_book_app_spring.exceptions.CustomException;
 import com.bridgelabz.address_book_app_spring.model.AddressBook;
 import com.bridgelabz.address_book_app_spring.repository.AddressBookRepository;
+import io.swagger.models.Response;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,26 +40,25 @@ public class AdressBookService implements IAddressBookService {
     }
 
     @Override
-    public AddressBook addContact(AddressBookDto addressBookDto) {
-        AddressBook addressBook = new AddressBook();
-        modelMapper.map(addressBookDto, addressBook);
-        return addressBookRepository.save(addressBook);
+    public AddressBookResponseDto addContact(AddressBookDto addressBookDto) {
+        AddressBook addressBook = modelMapper.map(addressBookDto, AddressBook.class);
+        addressBookRepository.save(addressBook);
+        return modelMapper.map(addressBook, AddressBookResponseDto.class);
     }
 
     @Override
     public AddressBook UpdateContact(int contactId, AddressBookDto addressBookDto) {
         AddressBookResponseDto addressBookResponseDto = this.getContactById(contactId);
-        AddressBook addressBook = new AddressBook();
         modelMapper.map(addressBookDto, addressBookResponseDto);
-        modelMapper.map(addressBookResponseDto, addressBook);
+        AddressBook addressBook = modelMapper.map(addressBookResponseDto, AddressBook.class);
         return addressBookRepository.save(addressBook);
     }
 
     @Override
-    public void deleteContact(int contactId) {
+    public AddressBook deleteContact(int contactId) {
         AddressBookResponseDto addressBookResponseDto = this.getContactById(contactId);
-        AddressBook addressBook = new AddressBook();
-        modelMapper.map(addressBookResponseDto, addressBook);
+        AddressBook addressBook = modelMapper.map(addressBookResponseDto, AddressBook.class);
         addressBookRepository.delete(addressBook);
+        return addressBook;
     }
 }

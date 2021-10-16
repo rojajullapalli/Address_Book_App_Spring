@@ -3,6 +3,7 @@ package com.bridgelabz.address_book_app_spring.dto;
 import com.sun.istack.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
@@ -16,6 +17,7 @@ import javax.validation.constraints.Pattern;
  */
 @Data
 @AllArgsConstructor
+@NoArgsConstructor
 public class AddressBookDto {
     @NotNull
     @Pattern(regexp = "^[A-Z]{1}[a-zA-Z]{2,}$", message = "name should contains atleast 2 characters...first letter should be caps")
